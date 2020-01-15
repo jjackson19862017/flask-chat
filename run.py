@@ -21,7 +21,7 @@ def index():
         session["username"] = request.form["username"]
 
     if "username" in session:
-        return redirect(session["username"])
+        return redirect('/chat'+session["username"])
 
     return render_template("index.html")
 
@@ -33,7 +33,7 @@ def user(username):
         username = session["username"]
         message = request.form["message"]
         add_messages(username, message)
-        return redirect(session["username"])
+        return redirect('/chat'+session["username"])
 
     return render_template("chat.html", username=username,
                            chat_messages=messages)
@@ -46,4 +46,4 @@ def send_message(username, message):
     return redirect("/" + username)
 
 
-app.run(host=os.getenv("IP"), port=os.getenv("PORT"), debug=True)
+app.run(debug=True)
